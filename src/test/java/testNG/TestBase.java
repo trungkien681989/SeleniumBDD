@@ -53,11 +53,11 @@ public class TestBase {
 	
 	@AfterMethod(alwaysRun = true)
     public void checkResult(ITestResult result) throws Exception {
-    	String path = ReportHelper.getScreenShot(driver, result.getName());
     	switch (result.getStatus()) {
         case ITestResult.FAILURE:
         	ExtentTestManager.getTest(result).fail(result.getThrowable().getMessage(),
-                    MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+                    MediaEntityBuilder.createScreenCaptureFromPath(
+                    		ReportHelper.getScreenShot(driver, result.getName())).build());
             logger.info(result.getThrowable().getMessage());
         	break;
         case ITestResult.SKIP:
