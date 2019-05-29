@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite thread-count="1" verbose="1" name="Tests" annotations="JDK" parallel="none">
+
+	<test thread-count="5" name="RunTests">
+	<parameter name="browser" value="FIREFOX" />
+	
+	    <classes>
+			<class name="testNG.LoginDataDriven"/>
+	    </classes>
+	    
+  	</test> <!-- Test -->
+  	
+</suite> <!-- Suite -->
