@@ -2,6 +2,8 @@ package utilities.report;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.log4j.Logger;
 import org.apache.commons.io.FileUtils;
@@ -41,7 +43,7 @@ public class ReportHelper {
 		
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String path = System.getProperty("user.dir") + "/Screenshots/" + screenshotName + "_" + System.currentTimeMillis() + ".png";
+		String path = System.getProperty("user.dir") + "/Screenshots/" + screenshotName + "_" + getSystemTime() + ".png";
 		File destination = new File(path);
 		
 		try {
@@ -52,5 +54,11 @@ public class ReportHelper {
 		
 		return path;
 		
+	}
+	
+	public static String getSystemTime() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		return dtf.format(now);
 	}
 }

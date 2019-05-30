@@ -8,10 +8,12 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -25,31 +27,34 @@ import utilities.report.ReportHelper;
 
 public class TestBase {
 	
-	ReadConfig readconfig = new ReadConfig();
+	protected ReadConfig readconfig = new ReadConfig();
 	
-	public String baseURL = readconfig.getApplicationURL();
-	public String username = readconfig.getUsername();
-	public String password = readconfig.getPassword();
+	protected String baseURL = readconfig.getApplicationURL();
+	protected String username = readconfig.getUsername();
+	protected String password = readconfig.getPassword();
 	
-	public static WebDriver driver;
-	protected DriverManager driverManager;
-	public static Logger logger;
+	protected static WebDriver driver;
+	protected static DriverManager driverManager;
+	protected static Logger logger;
 	
-	@BeforeClass(alwaysRun = true)
+	@BeforeSuite(alwaysRun = true)
     public void initLog() throws Throwable {
-		logger = Logger.getLogger("Test \"automationpractice.com\"");
 		PropertyConfigurator.configure("./src/test/resources/log4j.properties");
     }
 	
 	@Parameters({ "browser" })
-	@BeforeMethod(alwaysRun = true)
+	@BeforeClass(alwaysRun = true)
     public void setupDriver(DriverType type) throws Throwable {
 		driverManager = DriverManagerFactory.getDriverManager(type);
         driver = driverManager.getWebDriver();
     	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     	driver.manage().window().maximize();
-    	driver.get(baseURL);
     }
+	
+	@BeforeMethod(alwaysRun = true)
+    public void navigate() throws Throwable {
+		driver.get(baseURL);
+	}
 	
 	@AfterMethod(alwaysRun = true)
     public void checkResult(ITestResult result) throws Exception {
@@ -67,8 +72,12 @@ public class TestBase {
         default:
             break;
         }
-    	driverManager.quitWebDriver();
     }
+	
+	@AfterClass(alwaysRun = true)
+    public void quitDriver() throws Exception {
+		driverManager.quitWebDriver();
+	}
 	
 	@AfterSuite(alwaysRun = true)
 	public void saveReport() throws Throwable {

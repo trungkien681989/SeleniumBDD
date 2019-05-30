@@ -1,5 +1,6 @@
 package testNG;
 
+import org.apache.log4j.Logger;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -17,7 +18,7 @@ public class LoginFail extends TestBase{
 	
     @Test
     public void Login_Fail() throws Throwable {
-    	
+    	logger = Logger.getLogger("Test invalid Welcome Message");
     	ReportHelper.Log(logger, Status.INFO, "Go to Login Page", driver);
     	HomePage homePage = new HomePage(driver);
     	homePage.goToLoginPage();

@@ -11,10 +11,10 @@
     <protocol>https</protocol>
     
     <!-- title of the document -->
-    <documentTitle>Selenium Cucumber Framework</documentTitle>
+    <documentTitle>Selenium Framework</documentTitle>
     
     <!-- report name - displayed at top-nav -->
-    <reportName>Cucumber Testing report</reportName>
+    <reportName>Selenium Testing report</reportName>
     
     <!-- global date format override -->  <!-- defaults to yyyy-MM-dd -->
     <dateFormat>yyyy-MM-dd</dateFormat>
