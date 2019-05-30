@@ -4,19 +4,16 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter;
 
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import utilities.report.ReportHelper;
 import utilities.data.XLUtils;
 
-@Listeners({ExtentITestListenerClassAdapter.class})
 public class LoginDataDriven extends TestBase{
 	
     @Test(dataProvider="Account")

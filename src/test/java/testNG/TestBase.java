@@ -14,16 +14,26 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.service.ExtentTestManager;
+import com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter;
 
 import driverFactory.DriverManager;
 import driverFactory.DriverManagerFactory;
 import driverFactory.DriverManagerFactory.DriverType;
 import utilities.data.ReadConfig;
 import utilities.report.ReportHelper;
+import utilities.report.ReportTestIReporter;
+import utilities.report.ReportTestListener;
+
+@Listeners({
+	ExtentITestListenerClassAdapter.class,
+	ReportTestListener.class, 
+	ReportTestIReporter.class
+	})
 
 public class TestBase {
 	
@@ -82,12 +92,12 @@ public class TestBase {
 	@AfterSuite(alwaysRun = true)
 	public void saveReport() throws Throwable {
 		File htmlSource = new File("./test-output/HtmlReport/ExtentHtml.html");
-		File htmlDestination = new File("./Reports/HtmlReports/ExtentHtml" 
-		+ System.currentTimeMillis() + ".html");
+		File htmlDestination = new File("./Reports/HtmlReports/ExtentHtml_" 
+		+ ReportHelper.getSystemTime() + ".html");
 		FileUtils.copyFile(htmlSource, htmlDestination);
 		File loggerSource = new File("./test-output/LoggerReport/");
-		File loggerDestination = new File("./Reports/LoggerReport" 
-		+ System.currentTimeMillis());
+		File loggerDestination = new File("./Reports/LoggerReport_" 
+		+ ReportHelper.getSystemTime());
 		FileUtils.copyDirectory(loggerSource, loggerDestination);
 	}
 	
