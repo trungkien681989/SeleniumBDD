@@ -3,7 +3,7 @@ package driverFactory;
 public class DriverManagerFactory {
 	
 	public enum DriverType{
-		CHROME,CHROMEHEADLESS, FIREFOX, FIREFOXHEADLESS,EDGE,IE;
+		CHROME,FIREFOX,EDGE,IE,FIREFOXLOCAL,CHROMELOCAL,IELOCAL,EDGELOCAL,CHROMEHEADLESS,FIREFOXHEADLESS;
 	}
 	
 	public static DriverManager getDriverManager(DriverType type) {
@@ -13,11 +13,17 @@ public class DriverManagerFactory {
 		case CHROME:
 			driverManager = new ChromeDriverManager();
 			break;
+		case CHROMELOCAL:
+			driverManager = new ChromeLocalDriverManager();
+			break;
 		case CHROMEHEADLESS:
 			driverManager = new ChromeHeadlessDriverManager();
 			break;
 		case FIREFOX:
 			driverManager = new FirefoxDriverManager();
+			break;
+		case FIREFOXLOCAL:
+			driverManager = new FirefoxLocalDriverManager();
 			break;
 		case FIREFOXHEADLESS:
 			driverManager = new FirefoxHeadlessDriverManager();
@@ -25,8 +31,16 @@ public class DriverManagerFactory {
 		case EDGE:
 			driverManager = new EdgeDriverManager();
 			break;
-		default:
+		case EDGELOCAL:
+			driverManager = new EdgeLocalDriverManager();
+			break;
+		case IE:
 			driverManager = new IEDriverManager();
+			break;
+		case IELOCAL:
+			driverManager = new IELocalDriverManager();
+			break;
+		default:
 			break;
 		}
 		return driverManager;

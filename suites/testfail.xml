@@ -4,7 +4,7 @@
 <suite thread-count="1" verbose="1" name="Tests" annotations="JDK" parallel="none">
 
 	<test thread-count="5" name="RunTests">
-	<parameter name="browser" value="FIREFOX" />
+	<parameter name="browser" value="CHROMEHEADLESS" />
 	
 	    <classes>
 			<class name="testNG.LoginFail"/>
